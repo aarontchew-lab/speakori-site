@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact • Speakori</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="/">Speakori</a>
+      <nav class="nav-links">
+        <a href="/about.html">About</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>Contact</h1>
+      <p>For general inquiries, email <a href="mailto:aaron@speakori.com">aaron@speakori.com</a>.</p>
+      <p>For security issues, email <a href="mailto:security@speakori.com">security@speakori.com</a>.</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <small>© <span id="y"></span> Speakori</small>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

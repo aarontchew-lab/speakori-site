@@ -5,26 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speakori</title>
   <meta name="description" content="Speakori" />
-  <style>
-    :root { --fg:#111; --muted:#444; --border:#e7e7e7; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; color: var(--fg); }
-    main { max-width: 920px; margin: 0 auto; padding: 72px 20px; }
-    h1 { font-size: 52px; margin: 0 0 12px; letter-spacing: -0.02em; }
-    p { font-size: 18px; line-height: 1.6; color: var(--muted); margin: 0 0 14px; }
-    .card { margin-top: 26px; padding: 18px 18px; border: 1px solid var(--border); border-radius: 14px; }
-    a { color: inherit; }
-    small { color: var(--muted); }
-  </style>
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-  <main>
-    <h1>Speakori</h1>
-    <p>Coming soon.</p>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="/">Speakori</a>
+      <nav class="nav-links">
+        <a href="/about.html">About</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/login.html">Login</a>
+      </nav>
+    </div>
+  </header>
 
-    <div class="card">
-      <p><strong>Security contact:</strong> <a href="mailto:security@speakori.com">security@speakori.com</a></p>
-      <small>This address is for vulnerability reports and security issues.</small>
+  <main>
+    <div class="container">
+      <h1>Speakori</h1>
+      <p>Coming soon. In the meantime, explore the site and get in touch.</p>
+
+      <div class="grid">
+        <section class="card">
+          <h2>About</h2>
+          <p>What Speakori is and who it’s for.</p>
+          <a href="/about.html">Learn more →</a>
+        </section>
+
+        <section class="card">
+          <h2>Pricing</h2>
+          <p>Planned tiers and what’s included.</p>
+          <a href="/pricing.html">See pricing →</a>
+        </section>
+
+        <section class="card">
+          <h2>Contact</h2>
+          <p>Questions, feedback, partnerships.</p>
+          <a href="/contact.html">Contact us →</a>
+        </section>
+
+        <section class="card">
+          <h2>Login</h2>
+          <p>Member access (not enabled yet).</p>
+          <a href="/login.html">Go to login →</a>
+        </section>
+      </div>
+
+      <div class="card" style="margin-top: 20px;">
+        <p><strong>Security contact:</strong> <a href="mailto:security@speakori.com">security@speakori.com</a></p>
+        <small>This address is for vulnerability reports and security issues.</small>
+      </div>
     </div>
   </main>
+
+  <footer>
+    <div class="container">
+      © <span id="y"></span> Speakori
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
