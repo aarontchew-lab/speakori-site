@@ -11,7 +11,7 @@
   <header>
     <div class="container nav">
       <a class="brand" href="/">Speakori</a>
-      <nav class="nav-links">
+      <nav class="nav-links" id="navLinks">
         <a href="/about.html">About</a>
         <a href="/pricing.html">Pricing</a>
         <a href="/contact.html">Contact</a>
@@ -21,7 +21,8 @@
   </header>
 
   <main>
-    <div class="container">
+    <!-- Marketing (speakori.com / www) -->
+    <div class="container" id="marketing" style="display:none;">
       <h1>Speakori</h1>
       <p>Coming soon. In the meantime, explore the site and get in touch.</p>
 
@@ -56,6 +57,29 @@
         <small>This address is for vulnerability reports and security issues.</small>
       </div>
     </div>
+
+    <!-- App test UI (app.speakori.com) -->
+    <div class="container" id="app" style="display:none;">
+      <h1>Speakori (App)</h1>
+      <p>This is a temporary app test UI. It calls the backend Worker at <code>/api/*</code>.</p>
+
+      <div class="card">
+        <h2>Identity (temporary)</h2>
+        <p>Enter a test user id (until Clerk is wired):</p>
+        <input id="userId" placeholder="e.g. testuser" style="width: 100%; max-width: 420px; padding: 10px; border-radius: 10px; border: 1px solid #ddd;" />
+        <div style="margin-top: 12px; display:flex; gap: 10px; flex-wrap: wrap;">
+          <button id="btnWhoami" class="btn">/api/whoami</button>
+          <button id="btnAccess" class="btn">/api/access</button>
+          <button id="btnVersion" class="btn">/api/version</button>
+        </div>
+        <pre id="out" style="margin-top: 12px; white-space: pre-wrap; word-break: break-word;"></pre>
+      </div>
+
+      <div class="card" style="margin-top: 16px;">
+        <h2>Next</h2>
+        <p>Next we’ll replace the test user id with real Clerk login, then wire Stripe so paid users get <code>access: "paid"</code>.</p>
+      </div>
+    </div>
   </main>
 
   <footer>
@@ -65,7 +89,52 @@
   </footer>
 
   <script>
+    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Simple hostname switch: marketing vs app.
+    const isApp = location.hostname === 'app.speakori.com';
+    document.getElementById(isApp ? 'app' : 'marketing').style.display = 'block';
+
+    // Small nav tweak on app.
+    if (isApp) {
+      const nav = document.getElementById('navLinks');
+      if (nav) nav.innerHTML = '<a href="https://speakori.com">Marketing</a> <a href="/pricing.html">Pricing</a> <a href="/contact.html">Support</a>';
+
+      const out = document.getElementById('out');
+      const userId = document.getElementById('userId');
+      const api = (path) => {
+        const u = new URL(path, location.origin);
+        const uid = (userId.value || '').trim();
+        if (uid) u.searchParams.set('user_id', uid);
+        return u.toString();
+      };
+      const call = async (path) => {
+        out.textContent = 'Loading…';
+        try {
+          const res = await fetch(api(path));
+          const text = await res.text();
+          out.textContent = text;
+        } catch (e) {
+          out.textContent = String(e);
+        }
+      };
+      document.getElementById('btnWhoami')?.addEventListener('click', () => call('/api/whoami'));
+      document.getElementById('btnAccess')?.addEventListener('click', () => call('/api/access'));
+      document.getElementById('btnVersion')?.addEventListener('click', () => call('/api/version'));
+    }
   </script>
+
+  <style>
+    /* light button styling without touching global CSS */
+    .btn {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      background: #fff;
+      cursor: pointer;
+    }
+    .btn:hover { background: #f7f7f7; }
+  </style>
 </body>
 </html>
